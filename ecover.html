@@ -1,0 +1,1623 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Effortless eCovers</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --panel2: #eef4ff;
+      --ink: #0b1220;
+      --muted: #5b667a;
+      --line: #d9e2f2;
+      --blue: #1e63ff;
+      --blue2: #0a3fbf;
+      --cyan: #2ee6ff;
+      --green: #14b86a;
+      --shadow: rgba(18, 33, 65, 0.14);
+      --soft: rgba(30, 99, 255, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(46,230,255,0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(30,99,255,0.15), transparent 34%),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    .wrap {
+      width: min(950px, 94vw);
+      margin: 0 auto;
+      padding: 32px 0 70px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #f5f9ff 100%);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: 0 28px 70px var(--shadow);
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -140px;
+      top: -150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,99,255,0.22), transparent 66%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(30,99,255,0.24);
+      background: #ecf4ff;
+      color: var(--blue2);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      max-width: 900px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(18, 33, 65, 0.08);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, #ffffff, #f4f8ff);
+    }
+
+    .panel-head h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .panel-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .panel-body { padding: 22px; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--blue2);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      color: var(--ink);
+      font: inherit;
+      font-size: 15px;
+      outline: none;
+      transition: 0.18s ease;
+    }
+
+    input, select { height: 52px; padding: 0 14px; }
+
+    textarea {
+      min-height: 118px;
+      resize: vertical;
+      padding: 14px;
+      line-height: 1.45;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(30,99,255,0.65);
+      box-shadow: 0 0 0 4px rgba(30,99,255,0.10);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 15px;
+      height: 50px;
+      padding: 0 18px;
+      background: var(--blue);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(30,99,255,0.23);
+      transition: 0.18s ease;
+      font-size: 14px;
+    }
+
+    button:hover { transform: translateY(-1px); background: var(--blue2); }
+
+    button.secondary {
+      background: #edf4ff;
+      color: var(--blue2);
+      box-shadow: none;
+      border: 1px solid rgba(30,99,255,0.22);
+    }
+
+    .prompt-card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #ffffff;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .prompt-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #f7faff;
+    }
+
+    .prompt-title strong {
+      font-size: 15px;
+      letter-spacing: -0.01em;
+    }
+
+    .copy-btn {
+      height: 38px;
+      border-radius: 12px;
+      padding: 0 13px;
+      box-shadow: none;
+      font-size: 13px;
+    }
+
+    .prompt-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .secondary-small {
+      background: #edf4ff;
+      color: var(--blue2);
+      border: 1px solid rgba(30,99,255,0.22);
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 0;
+      padding: 16px;
+      color: #172033;
+      font-size: 13.5px;
+      line-height: 1.5;
+      max-height: 340px;
+      overflow: auto;
+      background: #ffffff;
+    }
+
+    .mini {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .stat {
+      background: var(--soft);
+      border: 1px solid rgba(30,99,255,0.14);
+      border-radius: 18px;
+      padding: 13px;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 19px;
+      letter-spacing: -0.03em;
+      margin-bottom: 3px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.35;
+    }
+
+    .notice {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(20,184,106,0.24);
+      background: rgba(20,184,106,0.08);
+      color: #0d7542;
+      font-weight: 800;
+      font-size: 13px;
+      margin-top: 14px;
+      line-height: 1.4;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      margin-top: 14px;
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .palette-item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 12px;
+    }
+
+    .palette-item span {
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--blue2);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .palette-item input[type="color"] {
+      width: 100%;
+      height: 52px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 4px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .hex-input {
+      margin-top: 8px;
+      height: 42px;
+      padding: 0 10px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      text-align: center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+
+    .workflow-separator {
+      margin: 42px 0 24px;
+      padding: 20px 22px;
+      border: 2px dashed rgba(30, 99, 255, 0.30);
+      border-radius: 22px;
+      background: linear-gradient(135deg, #ffffff, #f4f8ff);
+      text-align: center;
+    }
+
+    .workflow-separator span {
+      display: inline-flex;
+      margin-bottom: 10px;
+    }
+
+    .workflow-separator h2 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .workflow-separator p {
+      margin: 0 auto;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .section-divider {
+      margin: 36px 0 30px;
+      border-top: 3px dashed rgba(30, 99, 255, 0.28);
+    }
+
+    .section-title-block {
+      margin-top: 34px;
+      margin-bottom: 16px;
+    }
+
+    .section-title-block h2 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .section-title-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+      max-width: 860px;
+    }
+
+    .radio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .radio-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      min-height: 56px;
+    }
+
+    .radio-card input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: var(--blue);
+      flex: 0 0 auto;
+    }
+
+    .radio-card span {
+      display: block;
+      line-height: 1.35;
+    }
+
+    .fast-note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      margin-top: 6px;
+    }
+
+    .footer-link {
+      margin-top: 34px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .footer-link a {
+      color: var(--blue2);
+      font-weight: 900;
+      text-decoration: none;
+      border-bottom: 2px solid rgba(30, 99, 255, 0.22);
+    }
+
+    .footer-link a:hover {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+    }
+
+    .dashboard-image-panel {
+      margin: 22px 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(18, 33, 65, 0.08);
+      padding: 22px;
+    }
+
+    .dashboard-image-placeholder {
+      min-height: 260px;
+      border: 2px dashed rgba(30, 99, 255, 0.28);
+      border-radius: 22px;
+      background: #f7faff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .dashboard-image-placeholder span {
+      color: var(--blue2);
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .mini { grid-template-columns: 1fr; }
+      .radio-grid { grid-template-columns: 1fr; }
+      .palette-grid { grid-template-columns: 1fr 1fr; }
+      h1 { letter-spacing: -0.04em; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <span class="badge">Effortless eCovers</span>
+      <h1>Copy. Paste. Create premium eCovers in seconds.</h1>
+      <p>Zero design skill required. In 3-steps use ChatGPT to generate unlimited, polished eCovers for software, reports, workbooks, ebooks, membership site, and more. Create eCovers in seconds for all of your digital products.</p>
+    </section>
+
+<section class="dashboard-image-panel">
+       <div class="dashboard-image-placeholder">
+        <span>
+  <img 
+    src="https://actionactivated.com/wp-content/uploads/d302f73f-0888-42d9-b036-f19cc15988d3.png" 
+    alt="Image" 
+    style="max-width: 100%; height: auto; display: inline-block;"
+  >
+</div></span>
+    </section>
+
+    <section class="workflow-separator">
+      <span class="badge">FAST EXPRESS MODE</span>
+      <h2>Effortless eCovers FAST EXPRESS Mode</h2>
+      <p>Use this section when you want the quickest path to a finished ecover prompt workflow.</p>
+    </section>
+<section class="grid">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>FAST EXPRESS Mode Details</h2>
+          <p>Use the quick workflow below when you want the fastest path to finished ecover.</p>
+        </div>
+        <div class="panel-body">
+          <div class="form-grid">
+            <div class="full">
+              <label for="fastOfferName">Offer Name</label>
+              <input id="fastOfferName" placeholder="Enter your offer name" />
+            </div>
+
+            <div class="full">
+              <label for="fastSubtitle">Subtitle</label>
+              <input id="fastSubtitle" placeholder="Optional. Leave blank if you want AI to create one." />
+            </div>
+
+            <div class="full">
+              <label for="fastBrandName">Author or Brand Name</label>
+              <input id="fastBrandName" placeholder="Enter your author or brand name" />
+            </div>
+
+            <div class="full">
+              <label>Ecover Format</label>
+              <div class="radio-grid">
+                <label class="radio-card"><input type="radio" name="fastFormat" value="softwareBox" checked /><span>Premium Software Box</span></label>
+                <label class="radio-card"><input type="radio" name="fastFormat" value="digitalReport" /><span>Premium Digital Report</span></label>
+                <label class="radio-card"><input type="radio" name="fastFormat" value="spiralWorkbook" /><span>Premium Spiral Workbook</span></label>
+                <label class="radio-card"><input type="radio" name="fastFormat" value="paperbackBook" /><span>Premium Paperback Book</span></label>
+                <label class="radio-card"><input type="radio" name="fastFormat" value="hardbackBook" /><span>Premium Hardback Book</span></label>
+                <label class="radio-card"><input type="radio" name="fastFormat" value="booklet" /><span>Premium Booklet</span></label>
+                <label class="radio-card"><input type="radio" name="fastFormat" value="membershipCard" /><span>Premium Membership Card</span></label>
+              </div>
+            </div>
+
+            <div>
+              <label for="fastColor">Cover Color Direction</label>
+              <select id="fastColor" onchange="toggleFastCustomPalette()">
+                <option value="auto">Auto Match Product Context</option>
+                <option value="dark">Dark Cover Design</option>
+                <option value="light">Clean Light Cover Design</option>
+                <option value="vivid">Vivid High-Contrast Cover Design</option>
+                <option value="luxury">Luxury Dark Cover Design</option>
+                <option value="customPalette">Custom 4-Color Palette</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="fastDirection">Mockup Direction</label>
+              <select id="fastDirection">
+                <option value="rightFacing">Right Facing</option>
+                <option value="leftFacing" selected>Left Facing</option>
+                <option value="frontFacing">Front Facing</option>
+              </select>
+            </div>
+
+            <div class="full" id="fastCustomPaletteWrap" style="display:none;">
+              <label>Custom Color Palette</label>
+              <div class="palette-grid">
+                <div class="palette-item">
+                  <span>Primary</span>
+                  <input type="color" id="fastPrimaryColor" value="#0F172A" oninput="syncHexFromColorFast('primary')" />
+                  <input type="text" id="fastPrimaryHex" class="hex-input" value="#0F172A" maxlength="7" oninput="syncColorFromHexFast('primary')" />
+                </div>
+                <div class="palette-item">
+                  <span>Secondary</span>
+                  <input type="color" id="fastSecondaryColor" value="#1E63FF" oninput="syncHexFromColorFast('secondary')" />
+                  <input type="text" id="fastSecondaryHex" class="hex-input" value="#1E63FF" maxlength="7" oninput="syncColorFromHexFast('secondary')" />
+                </div>
+                <div class="palette-item">
+                  <span>Accent</span>
+                  <input type="color" id="fastAccentColor" value="#2EE6FF" oninput="syncHexFromColorFast('accent')" />
+                  <input type="text" id="fastAccentHex" class="hex-input" value="#2EE6FF" maxlength="7" oninput="syncColorFromHexFast('accent')" />
+                </div>
+                <div class="palette-item">
+                  <span>Support</span>
+                  <input type="color" id="fastSupportColor" value="#EAF2FF" oninput="syncHexFromColorFast('support')" />
+                  <input type="text" id="fastSupportHex" class="hex-input" value="#EAF2FF" maxlength="7" oninput="syncColorFromHexFast('support')" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button onclick="generateFastPrompts()">Generate FAST EXPRESS Mode Prompts</button>
+            <button class="secondary" onclick="resetFastForm()">Clear Fields</button>
+          </div>
+
+          <div class="notice">Get eCovers created fast.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>FAST EXPRESS Mode Prompts</h2>
+          <p>Use these in order inside a fresh ChatGPT chat for the fastest ecover workflow.</p>
+        </div>
+        <div class="panel-body">
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>Step 1: FAST Mode Setup Prompt</strong>
+              <div class="prompt-actions">
+                <button class="copy-btn" onclick="copyPrompt('fastSetupPrompt')">Copy</button>
+                <button class="copy-btn secondary-small" onclick="openTool('chatgpt')">ChatGPT</button>
+              </div>
+            </div>
+            <pre id="fastSetupPrompt">We are going to create a premium ecover mockup using Effortless eCovers FAST Mode in this chat session.
+
+Here is the cover text we will use later:
+Product Title: [Enter Your Offer Name]
+Subtitle: No subtitle was provided by the user. Create one short, clear, benefit-driven subtitle from the offer information and place that generated subtitle on the cover. Do not print this instruction as the subtitle.
+Include the author/brand name: [Enter Your Author or Brand Name]
+
+In my next message, I will paste in my offer information.
+
+Your job in this chat session:
+1. First, acknowledge this setup.
+2. Then wait for my offer information.
+3. When I provide that offer information, read it and use it only as context for the ecover design.
+4. After receiving the offer information, do not create the image yet. Ask me for the FAST Mode ecover creation prompt.
+5. When I paste the FAST Mode ecover creation prompt, then create the finished ecover image.
+
+Use the pasted offer information to understand the offer&#x27;s niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.
+
+Do not create the image yet. Do not write the ecover prompt yet. Do not summarize unless absolutely necessary.
+
+For now, simply acknowledge this by saying exactly:
+
+I understand, paste in your offer information.
+
+After I provide the offer information, reply exactly:
+
+Got it. Paste the FAST Mode ecover creation prompt.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>Step 2: Paste Offer Information</strong>
+            </div>
+            <pre>Step 2  Paste in your offer information.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>Step 3: FAST Mode Ecover Creation Prompt</strong>
+              <button class="copy-btn" onclick="copyPrompt('fastCreationPrompt')">Copy</button>
+            </div>
+            <pre id="fastCreationPrompt">Create a consistent premium software box mockup. The product must appear as a tall upright rectangular software box at a three-quarter studio angle. Use a dominant front panel, visible side panel, thick product depth, sharp rectangular edges, clean studio lighting, realistic soft shadow, and polished digital-product packaging. Keep the same geometry every time: upright software box, visible side panel, thick rectangular depth, sharp edges, and front-facing product display. Do not make it look like a book, report, binder, tablet, app screen, laptop, flat poster, physical shipping box, or cube.
+
+Create one finished ecover mockup using this exact cover text:
+Product Title: [Enter Your Offer Name]
+Subtitle: No subtitle was provided by the user. Create one short, clear, benefit-driven subtitle from the offer information and place that generated subtitle on the cover. Do not print this instruction as the subtitle.
+Include the author/brand name: [Enter Your Author or Brand Name]
+
+Use the offer information I provided earlier in this same chat as product context.
+
+Use that context to understand the offer&#x27;s niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.
+
+The entire look of the cover must be custom-fit to the offer information, not generic. The actual imagery, tone, typography feel, visual symbolism, hierarchy, accent details, and overall theme must match the offer context.
+
+Do not invent product features, modules, bonuses, claims, statistics, testimonials, logos, certification seals, brand names, or extra cover text that was not provided.
+
+Design style to use:
+Analyze the offer information provided earlier in this chat and choose the strongest professional design direction for this exact offer. Base the design choice on the offer&#x27;s audience, promise, tone, price impression, niche expectations, and emotional hook. Do not use a random style. Choose a cover direction that makes the product feel clear, desirable, credible, polished, and ready to sell.
+
+Product-match rule:
+Do not create a generic cover. Make the cover feel specifically designed for this exact offer based on the offer information provided earlier in the chat. The visual theme, imagery, accent details, mood, typography personality, and layout should all feel naturally connected to the offer&#x27;s market, promise, buyer, and emotional hook. Avoid generic stock-looking art, random decorative graphics, unrelated symbols, vague tech visuals, one-size-fits-all design choices, or designs that look like the title was simply swapped into a template.
+
+Color direction for the cover design:
+Choose the strongest color direction based on the product context. The cover colors must support the offer&#x27;s promise, buyer desire, niche expectations, emotional hook, and perceived value. The final image background outside the product must remain pure white unless transparent background was selected.
+
+Mockup direction rule:
+Use the selected mockup direction: Left Facing. Left Facing means the front cover or front panel faces slightly toward the viewer&#x27;s right, with the left-side spine, page edge, side panel, or card edge visible. This direction rule changes only the viewing angle. Do not change the product type, shape, thickness, proportions, cover format, lighting, or background.
+
+Cover strength rule:
+The cover design must look like a finished premium product that could stop a buyer mid-scroll. Push the design harder with bold title hierarchy, dramatic contrast, rich depth, sharper visual energy, stronger focal point, and a clear custom concept tied to the offer. Make it feel striking, expensive, modern, and commercially powerful while staying clean, readable, and professional.
+
+Bold dramatic design rule:
+Do not settle for safe, flat, plain, timid, lightly decorated, or template-style design. Use large confident typography, high-impact spacing, strong contrast, dynamic composition, premium accents, and product-specific imagery that makes the cover feel instantly valuable. The result should feel bold, vibrant, creative, and visually memorable without becoming cluttered, cheesy, childish, or hard to read.
+
+Visible side title rule:
+If the selected product format has a visible spine, fold, edge, or side panel, place the product title clearly and cleanly on that visible side. Do not leave the visible side blank. For softback books, hardback books, reports, booklets, and software boxes, the title should appear on the visible side or spine when logically visible. For spiral workbooks, do not place the product title on the spine, coil binding, side edge, or page-edge area. Keep all product title text on the front cover only. For membership cards, do not force a fake spine or fake side title.
+
+Shape consistency rule:
+The selected ecover type controls the physical shape. Do not reinterpret, redesign, expand, combine, or replace that shape. Do not add companion products, duplicate covers, bonus stacks, extra books, extra cards, devices, packaging, props, hands, people, scenes, shelves, rooms, desks, floating icons, or background objects. Only create one clean mockup in the exact selected product format.
+
+Text accuracy rule:
+Use only the exact product title, subtitle instructions, and author or brand name provided above.
+
+If the subtitle field was filled in, use that exact subtitle.
+
+If no subtitle was provided, create a short benefit-driven subtitle from the offer information, copy, description, or uploaded PDF context and place the actual generated subtitle on the cover. Do not place the subtitle instruction text on the cover.
+
+If a word does not fit cleanly, simplify the layout instead of inventing extra words.
+
+Do not add fake taglines, labels, badges, seals, feature names, menu items, chapters, testimonials, or random text. Avoid gibberish, misspellings, distorted letters, unreadable microtext, or random filler copy.
+
+White background rule:
+Place the finished ecover mockup on a clean pure white studio background. Use realistic soft shadows under and behind the product, but do not add scenery, rooms, desks, gradients, props, patterns, textures, dark backgrounds, colored backgrounds, or environmental objects. The background outside the product must stay pure white so the mockup looks clean, reusable, and ready for sales pages, product thumbnails, ads, and marketplace listings.
+
+Professional design rule:
+Make the final ecover look like a premium digital product brand asset, not a basic AI image. The cover must be polished, bold, dramatic, clear, product-specific, and sales-page ready. It should feel custom to the offer, strongly connected to the topic, promise, audience, and emotional hook, and powerful enough to make someone pause, click, and take the product seriously. Avoid cluttered, childish, generic, cheap-looking, unrelated, timid, flat, boring, or amateur visual choices.
+
+Final hard check before generating:
+Confirm silently that the image contains exactly one selected ecover mockup, the correct locked shape, the exact provided cover text, a premium, bold, dramatic, product-matched visual theme, the product title on any logical visible spine or side panel except spiral workbooks, where the title stays on the front cover only, the exact provided subtitle if one was entered or a generated subtitle that matches the offer context if no subtitle was entered, no invented claims, no extra objects, and a pure white background.</pre>
+          </div>
+
+          <div class="footer-note">FAST Mode workflow: open the chat, paste the offer information, then paste the FAST Mode creation prompt.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="workflow-separator">
+      <span class="badge">OPTIONAL</span>
+      <h2>Advanced eCover Builder</h2>
+      <p>Use this section when you want more control over design style and other options.</p>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Cover Details</h2>
+          <p>Fill this out once, then generate your copy-ready prompts.</p>
+        </div>
+        <div class="panel-body">
+          <div class="form-grid">
+            <div class="full">
+              <label for="productTitle">Product Title</label>
+              <input id="productTitle" placeholder="Enter your offer title" />
+            </div>
+
+            <div class="full">
+              <label for="subtitle">Subtitle</label>
+              <input id="subtitle" placeholder="Optional. Leave blank if you want AI to create or omit it." />
+            </div>
+
+            <div>
+              <label for="brandName">Author or Brand Name</label>
+              <input id="brandName" placeholder="Enter your author or brand name" />
+            </div>
+
+            <div>
+              <label for="format">Ecover Format</label>
+              <select id="format">
+                <option value="softwareBox">Premium Software Box</option>
+                <option value="digitalReport">Premium Digital Report</option>
+                <option value="spiralWorkbook">Premium Spiral Workbook</option>
+                <option value="paperbackBook">Premium Paperback Book</option>
+                <option value="hardbackBook">Premium Hardback Book</option>
+                <option value="booklet">Premium Booklet</option>
+                <option value="membershipCard">Premium Membership Card</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="style">Design Style</label>
+              <select id="style">
+                <option value="auto">Auto Match Product Context</option>
+                <option value="boldPoster">Bold Poster Style</option>
+                <option value="cleanEditorial">Clean Editorial</option>
+                <option value="darkPremium">Dark Premium</option>
+                <option value="brightModern">Bright Modern</option>
+                <option value="minimalAuthority">Minimal Authority</option>
+                <option value="highEnergy">High Energy Promo</option>
+                <option value="luxuryBlack">Luxury Black</option>
+                <option value="futuristicTech">Futuristic Tech</option>
+                <option value="aiDashboard">AI Dashboard</option>
+                <option value="conversionMarketing">Conversion Marketing</option>
+                <option value="neonGlow">Neon Glow</option>
+                <option value="corporateSaaS">Corporate SaaS</option>
+                <option value="magazineCover">Magazine Cover</option>
+                <option value="premiumCourse">Premium Course</option>
+                <option value="minimalWhite">Minimal White</option>
+                <option value="blueOcean">Blue Ocean</option>
+                <option value="authorityReport">Authority Report</option>
+                <option value="viralSocial">Viral Social</option>
+                <option value="offerStack">Offer Stack</option>
+                <option value="cinematicAction">Cinematic Action</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="color">Cover Color Direction</label>
+              <select id="color" onchange="toggleCustomPalette()">
+                <option value="auto">Auto Match Product Context</option>
+                <option value="dark">Dark Cover Design</option>
+                <option value="light">Clean Light Cover Design</option>
+                <option value="vivid">Vivid High-Contrast Cover Design</option>
+                <option value="luxury">Luxury Dark Cover Design</option>
+                <option value="customPalette">Custom 4-Color Palette</option>
+              </select>
+            </div>
+
+            <div class="full" id="customPaletteWrap" style="display:none;">
+              <label>Custom Color Palette</label>
+              <div class="palette-grid">
+                <div class="palette-item">
+                  <span>Primary</span>
+                  <input type="color" id="primaryColor" value="#0F172A" oninput="syncHexFromColor('primary')" />
+                  <input type="text" id="primaryHex" class="hex-input" value="#0F172A" maxlength="7" oninput="syncColorFromHex('primary')" />
+                </div>
+
+                <div class="palette-item">
+                  <span>Secondary</span>
+                  <input type="color" id="secondaryColor" value="#1E63FF" oninput="syncHexFromColor('secondary')" />
+                  <input type="text" id="secondaryHex" class="hex-input" value="#1E63FF" maxlength="7" oninput="syncColorFromHex('secondary')" />
+                </div>
+
+                <div class="palette-item">
+                  <span>Accent</span>
+                  <input type="color" id="accentColor" value="#2EE6FF" oninput="syncHexFromColor('accent')" />
+                  <input type="text" id="accentHex" class="hex-input" value="#2EE6FF" maxlength="7" oninput="syncColorFromHex('accent')" />
+                </div>
+
+                <div class="palette-item">
+                  <span>Support</span>
+                  <input type="color" id="supportColor" value="#EAF2FF" oninput="syncHexFromColor('support')" />
+                  <input type="text" id="supportHex" class="hex-input" value="#EAF2FF" maxlength="7" oninput="syncColorFromHex('support')" />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label for="direction">Mockup Direction</label>
+              <select id="direction">
+                <option value="rightFacing">Right Facing</option>
+                <option value="leftFacing" selected>Left Facing</option>
+                <option value="frontFacing">Front Facing</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="subtitleMode">Subtitle Handling</label>
+              <select id="subtitleMode">
+                <option value="create">Create short subtitle if blank</option>
+                <option value="smart">Smart subtitle decision</option>
+                <option value="omit">Omit subtitle if blank</option>
+              </select>
+            </div>
+
+            <div class="full">
+              <label for="contextHint">Optional Product Context Reminder</label>
+              <textarea id="contextHint" placeholder="Optional. Paste a short product reminder here if you want it included inside the creation prompt. You can leave this blank because the workflow already tells ChatGPT to use the context pasted earlier in the same chat."></textarea>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button onclick="generatePrompts()">Generate Prompts</button>
+            <button class="secondary" onclick="resetForm()">Clear Fields</button>
+          </div>
+
+          <div class="notice">No references to forbidden dimensional wording are used in the app copy or generated prompts.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Copy Ready Prompts</h2>
+          <p>Use these in order inside a fresh ChatGPT chat.</p>
+        </div>
+        <div class="panel-body">
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>Step 1: Session Setup Prompt</strong>
+              <div class="prompt-actions">
+                <button class="copy-btn" onclick="copyPrompt('setupPrompt')">Copy</button>
+                <button class="copy-btn secondary-small" onclick="openTool('chatgpt')">ChatGPT</button>
+              </div>
+            </div>
+            <pre id="setupPrompt">We are going to create a premium ecover mockup in this chat session.
+
+Here is the cover text we will use later:
+Product Title: [Enter Your Offer Title]
+Subtitle: No subtitle was provided by the user. Create one short, clear, benefit-driven subtitle from the product context and place that generated subtitle on the cover. Do not print this instruction as the subtitle.
+Include the author/brand name: [Enter Your Author or Brand Name]
+
+In my next message, I will paste my sales copy, product description, offer details, or upload the PDF if this is a PDF product.
+
+Your job in this chat session:
+1. First, acknowledge this setup.
+2. Then wait for my product copy, product description, offer details, or PDF.
+3. When I provide that product context, read it and use it only as context for the ecover design.
+4. After receiving the product context, do not create the image yet. Ask me for the ecover creation prompt.
+5. When I paste the ecover creation prompt, then create the finished ecover image.
+
+Use the product context to understand the product&#x27;s niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.
+
+Do not create the image yet. Do not write the ecover prompt yet. Do not summarize unless absolutely necessary.
+
+For now, simply acknowledge this by saying exactly:
+
+I understand, paste in your sales copy, description, or upload the PDF if it&#x27;s a PDF product.
+
+After I provide the product context, reply exactly:
+
+Got it. Paste the ecover creation prompt.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>Step 2: Paste Product Context</strong>
+            </div>
+            <pre>Step 2  Paste sales copy, a product description, offer details, or upload a PDF.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>Step 3: Ecover Creation Prompt</strong>
+              <button class="copy-btn" onclick="copyPrompt('creationPrompt')">Copy</button>
+            </div>
+            <pre id="creationPrompt">Create a consistent premium software box mockup. The product must appear as a tall upright rectangular software box at a three-quarter studio angle. Use a dominant front panel, visible side panel, thick product depth, sharp rectangular edges, clean studio lighting, realistic soft shadow, and polished digital-product packaging. Keep the same geometry every time: upright software box, visible side panel, thick rectangular depth, sharp edges, and front-facing product display. Do not make it look like a book, report, binder, tablet, app screen, laptop, flat poster, physical shipping box, or cube.
+
+Create one finished ecover mockup using this exact cover text:
+Product Title: [Enter Your Offer Title]
+Subtitle: No subtitle was provided by the user. Create one short, clear, benefit-driven subtitle from the product context and place that generated subtitle on the cover. Do not print this instruction as the subtitle.
+Include the author/brand name: [Enter Your Author or Brand Name]
+
+Use the sales copy, product description, offer details, or uploaded PDF I provided earlier in this same chat as product context.
+
+Use that context to understand the product&#x27;s niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.
+
+The entire look of the cover must be custom-fit to the product context, not generic. The selected design style is only a visual lens. The actual imagery, tone, typography feel, visual symbolism, hierarchy, accent details, and overall theme must match the sales copy, product description, offer details, or PDF context.
+
+Do not invent product features, modules, bonuses, claims, statistics, testimonials, logos, certification seals, brand names, or extra cover text that was not provided.
+
+Design style to use:
+Analyze the product context provided earlier in this chat and choose the strongest professional design direction for this exact offer. Base the design choice on the product&#x27;s audience, promise, tone, price impression, niche expectations, and emotional hook. Do not use a random style. Do not force a niche-specific theme. Choose a cover direction that makes the product feel clear, desirable, credible, polished, and ready to sell.
+
+Product-match rule:
+Do not create a generic cover. Make the cover feel specifically designed for this exact product, based on the product context provided earlier in the chat. The visual theme, imagery, accent details, mood, typography personality, and layout should all feel naturally connected to the product&#x27;s market, promise, buyer, and emotional hook. Avoid generic stock-looking art, random decorative graphics, unrelated symbols, vague tech visuals, one-size-fits-all design choices, or designs that look like the title was simply swapped into a template.
+
+Color direction for the cover design:
+Choose the strongest color direction based on the product context. The cover colors must support the offer&#x27;s promise, buyer desire, niche expectations, emotional hook, and perceived value. The final image background outside the product must remain pure white unless transparent background was selected.
+
+Mockup direction rule:
+Use the selected mockup direction: Left Facing. Left Facing means the front cover or front panel faces slightly toward the viewer&#x27;s right, with the left-side spine, page edge, side panel, or card edge visible. This direction rule changes only the viewing angle. Do not change the product type, shape, thickness, proportions, cover format, lighting, or background.
+
+Cover strength rule:
+The cover design must look like a finished premium product that could stop a buyer mid-scroll. Push the design harder with bold title hierarchy, dramatic contrast, rich depth, sharper visual energy, stronger focal point, and a clear custom concept tied to the offer. Make it feel striking, expensive, modern, and commercially powerful while staying clean, readable, and professional.
+
+Bold dramatic design rule:
+Do not settle for safe, flat, plain, timid, lightly decorated, or template-style design. Use large confident typography, high-impact spacing, strong contrast, dynamic composition, premium accents, and product-specific imagery that makes the cover feel instantly valuable. The result should feel bold, vibrant, creative, and visually memorable without becoming cluttered, cheesy, childish, or hard to read.
+
+Visible side title rule:
+If the selected product format has a visible spine, fold, edge, or side panel, place the product title clearly and cleanly on that visible side. Do not leave the visible side blank. For softback books, hardback books, reports, booklets, and software boxes, the title should appear on the visible side or spine when logically visible. For spiral workbooks, do not place the product title on the spine, coil binding, side edge, or page-edge area. Keep all product title text on the front cover only. For membership cards, do not force a fake spine or fake side title.
+
+Shape consistency rule:
+The selected ecover type controls the physical shape. Do not reinterpret, redesign, expand, combine, or replace that shape. Do not add companion products, duplicate covers, bonus stacks, extra books, extra cards, devices, packaging, props, hands, people, scenes, shelves, rooms, desks, floating icons, or background objects. Only create one clean mockup in the exact selected product format.
+
+Text accuracy rule:
+Use only the exact product title, subtitle instructions, and author or brand name provided above.
+
+If the subtitle field was filled in, use that exact subtitle.
+
+If no subtitle was provided and the subtitle handling instruction says to create one, create a short benefit-driven subtitle from the product context and place the actual generated subtitle on the cover. Do not place the subtitle instruction text on the cover.
+
+If a word does not fit cleanly, simplify the layout instead of inventing extra words.
+
+Do not add fake taglines, labels, badges, seals, feature names, menu items, chapters, testimonials, or random text. Avoid gibberish, misspellings, distorted letters, unreadable microtext, or random filler copy.
+
+White background rule:
+Place the finished ecover mockup on a clean pure white studio background. Use realistic soft shadows under and behind the product, but do not add scenery, rooms, desks, gradients, props, patterns, textures, dark backgrounds, colored backgrounds, or environmental objects. The background outside the product must stay pure white so the mockup looks clean, reusable, and ready for sales pages, product thumbnails, ads, and marketplace listings.
+
+Professional design rule:
+Make the final ecover look like a premium digital product brand asset, not a basic AI image. The cover must be polished, bold, dramatic, clear, product-specific, and sales-page ready. It should feel custom to the offer, strongly connected to the topic, promise, audience, and emotional hook, and powerful enough to make someone pause, click, and take the product seriously. Avoid cluttered, childish, generic, cheap-looking, unrelated, timid, flat, boring, or amateur visual choices.
+
+Final hard check before generating:
+Confirm silently that the image contains exactly one selected ecover mockup, the correct locked shape, the exact provided cover text, a premium, bold, dramatic, product-matched visual theme, the product title on any logical visible spine or side panel except spiral workbooks, where the title stays on the front cover only, no invented claims, no extra objects, and the correct background.</pre>
+          </div>
+
+          <div class="footer-note">Step 1 opens the chat. Step 2 adds the product context. Step 3 creates the finished ecover image.</div>
+        </div>
+      </div>
+    </section>
+    <section class="workflow-separator">
+      <span class="badge">BONUS SECTION</span>
+      <h2>Instant Follow-Up prompts</h2>
+      <p>Use these follow-up prompts after ChatGPT creates your ecover so you can quickly generate new variations while keeping the same product format and mockup shape.</p>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Instant Follow-Up prompts</h2>
+          <p>Copy any prompt below and paste it into the same chat after your ecover is created.</p>
+        </div>
+        <div class="panel-body">
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>1. Bold, Vibrant, and Creative</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt1')">Copy</button>
+            </div>
+            <pre id="followUpPrompt1">Give me another version. Keep the same product format and mockup shape. Make it bold, vibrant, and creative.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>2. Premium, Polished, and Visually Striking</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt2')">Copy</button>
+            </div>
+            <pre id="followUpPrompt2">Give me another version. Keep the same product format and mockup shape. Make it more premium, polished, and visually striking.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>3. Dramatic and Attention-Grabbing</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt3')">Copy</button>
+            </div>
+            <pre id="followUpPrompt3">Give me another version. Keep the same product format and mockup shape. Make it more dramatic and attention-grabbing.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>4. Cleaner, Brighter, and More Modern</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt4')">Copy</button>
+            </div>
+            <pre id="followUpPrompt4">Give me another version. Keep the same product format and mockup shape. Make it cleaner, brighter, and more modern.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>5. Vivid, Show-Stopping, and High-Impact</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt5')">Copy</button>
+            </div>
+            <pre id="followUpPrompt5">Give me another version. Keep the same product format and mockup shape. Make it more vivid, show-stopping, and high-impact.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>6. Luxurious and High-End</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt6')">Copy</button>
+            </div>
+            <pre id="followUpPrompt6">Give me another version. Keep the same product format and mockup shape. Make it more luxurious and high-end.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>7. Simple, Bold, and Readable</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt7')">Copy</button>
+            </div>
+            <pre id="followUpPrompt7">Give me another version. Keep the same product format and mockup shape. Make it more simple, bold, and readable.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>8. Unique and Less Template-Like</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt8')">Copy</button>
+            </div>
+            <pre id="followUpPrompt8">Give me another version. Keep the same product format and mockup shape. Make it more unique and less template-like.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>9. Larger Font and Stronger Typography</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt9')">Copy</button>
+            </div>
+            <pre id="followUpPrompt9">Give me another version. Keep the same product format and mockup shape. Use larger font and stronger typography hierarchy.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>10. Bigger Graphics and Fuller Cover</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt10')">Copy</button>
+            </div>
+            <pre id="followUpPrompt10">Give me another version. Keep the same product format and mockup shape. Make the graphics bigger and let them fill more of the cover.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>11. Completely New Graphics and Font</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt11')">Copy</button>
+            </div>
+            <pre id="followUpPrompt11">Give me another version. Keep the same product format and mockup shape. Change the graphics and font completely while keeping it professional.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>12. Darker, Bolder, and More Intense</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt12')">Copy</button>
+            </div>
+            <pre id="followUpPrompt12">Give me another version. Keep the same product format and mockup shape. Make the cover darker, bolder, and more intense.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>13. Lighter, Fresher, and Visually Clean</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt13')">Copy</button>
+            </div>
+            <pre id="followUpPrompt13">Give me another version. Keep the same product format and mockup shape. Make the cover lighter, fresher, and more visually clean.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>14. Sleek, Minimal, and Premium</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt14')">Copy</button>
+            </div>
+            <pre id="followUpPrompt14">Give me another version. Keep the same product format and mockup shape. Make it sleek, minimal, and premium.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>15. Colorful, Energetic, and Scroll-Stopping</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt15')">Copy</button>
+            </div>
+            <pre id="followUpPrompt15">Give me another version. Keep the same product format and mockup shape. Make it more colorful, energetic, and scroll-stopping.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>16. Authoritative, Credible, and Expert-Driven</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt16')">Copy</button>
+            </div>
+            <pre id="followUpPrompt16">Give me another version. Keep the same product format and mockup shape. Make it look more authoritative, credible, and expert-driven.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>17. Best-Selling Premium Product Look</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt17')">Copy</button>
+            </div>
+            <pre id="followUpPrompt17">Give me another version. Keep the same product format and mockup shape. Make it look more like a best-selling premium product.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>18. Niche-Specific and Custom to the Offer</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt18')">Copy</button>
+            </div>
+            <pre id="followUpPrompt18">Give me another version. Keep the same product format and mockup shape. Make it feel more niche-specific and custom to the offer.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>19. Cleanly Organized with Stronger Balance</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt19')">Copy</button>
+            </div>
+            <pre id="followUpPrompt19">Give me another version. Keep the same product format and mockup shape. Make it more cleanly organized with stronger visual balance.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>20. Centered Text with Bold Balance</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt20')">Copy</button>
+            </div>
+            <pre id="followUpPrompt20">Give me another version. Keep the same product format and mockup shape. Center the text and make the overall layout feel bold and balanced.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>21. Stronger Contrast and Visual Depth</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt21')">Copy</button>
+            </div>
+            <pre id="followUpPrompt21">Give me another version. Keep the same product format and mockup shape. Make it more eye-catching with stronger contrast and better visual depth.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>22. Modern, Sharp, and Commercially Polished</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt22')">Copy</button>
+            </div>
+            <pre id="followUpPrompt22">Give me another version. Keep the same product format and mockup shape. Make it look more modern, sharp, and commercially polished.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>23. More Original Creative Direction</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt23')">Copy</button>
+            </div>
+            <pre id="followUpPrompt23">Give me another version. Keep the same product format and mockup shape. Push the creativity harder and make it feel more original.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>24. Elegant, Refined, and Professionally Designed</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt24')">Copy</button>
+            </div>
+            <pre id="followUpPrompt24">Give me another version. Keep the same product format and mockup shape. Make it more elegant, refined, and professionally designed.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-title">
+              <strong>25. Completely Different Design Direction</strong>
+              <button class="copy-btn" onclick="copyPrompt('followUpPrompt25')">Copy</button>
+            </div>
+            <pre id="followUpPrompt25">Give me another version. Keep the same product format and mockup shape. Use a completely different design direction while still matching the offer.</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="footer-link">
+      <a href="https://www.facebook.com/groups/markhesscustomergroup" target="_blank" rel="noopener noreferrer">Join The FREE Private Community</a>
+    </footer>
+
+  </main>
+
+  <script>
+    const formatRules = {
+      softwareBox: `Create a consistent premium software box mockup. The product must appear as a tall upright rectangular software box at a three-quarter studio angle. Use a dominant front panel, visible side panel, thick product depth, sharp rectangular edges, clean studio lighting, realistic soft shadow, and polished digital-product packaging. Keep the same geometry every time: upright software box, visible side panel, thick rectangular depth, sharp edges, and front-facing product display. Do not make it look like a book, report, binder, tablet, app screen, laptop, flat poster, physical shipping box, or cube.`,
+      digitalReport: `Create a consistent premium digital report mockup. The product must appear as a thin vertical PDF-style report, not a book. Use a slightly curved softcover front, a narrow spine edge, visible white page depth on the outer side, realistic soft shadows, crisp edges, and a clean three-quarter studio angle. Keep the same geometry every time: slim report body, curved front cover, narrow spine, visible page stack, and clean product-display proportions. Do not make it look like a paperback, hardback, magazine, software box, binder, tablet, flat poster, folder, or thick workbook.`,
+      spiralWorkbook: `Create a consistent premium spiral-bound workbook mockup. The product must appear as a thick spiral workbook standing upright at a three-quarter studio angle. Use a visible spiral binding along the left edge, a durable front cover, visible page thickness, clean paper edges, practical workbook proportions, realistic lighting, and a polished shadow. Keep the same geometry every time: upright spiral-bound workbook body, visible metal or plastic coil binding, thicker page stack than a report, clean front cover, and practical training-product presentation. Do not make it look like a thin report, hardback book, paperback book, software box, binder, tablet, flat worksheet, poster, or regular non-spiral book.`,
+      paperbackBook: `Create a consistent premium paperback book mockup. The product must appear as a realistic upright paperback book at a three-quarter studio angle. Use a flexible softcover front, visible spine, visible page depth, crisp paper edges, realistic lighting, and a polished product-display shadow. Keep the same geometry every time: upright paperback body, softcover proportions, visible spine, clean page stack, and sales-page-ready presentation. Do not make it look like a software box, hardback book, report, binder, tablet, workbook, flat poster, or magazine.`,
+      hardbackBook: `Create a consistent premium hardback book mockup. The product must appear as a sturdy upright hardback book at a three-quarter studio angle. Use a durable hard cover, visible spine, slight cover thickness, visible page edges, realistic lighting, and a polished product-display shadow. Keep the same geometry every time: upright hardback body, premium cover structure, visible spine, clean page stack, and professional product presentation. Do not make it look like a software box, paperback book, report, binder, tablet, workbook, flat poster, or magazine.`,
+      booklet: `Create a consistent premium booklet mockup. The product must appear as a slim upright booklet at a three-quarter studio angle. Use a clean front cover, narrow folded edge, light page depth, crisp edges, realistic lighting, and a polished product-display shadow. Keep the same geometry every time: slim booklet body, lightweight cover, visible folded edge, modest page stack, and clean digital product presentation. Do not make it look like a thick book, software box, binder, report, tablet, workbook, flat poster, or magazine.`,
+      membershipCard: `Create a consistent premium membership card mockup. The product must appear as one clean premium card at a slight studio angle. Use a durable card surface, crisp rectangular edges, polished lighting, and a realistic soft shadow. Keep the same geometry every time: single premium card, readable front surface, clean product-display proportions, and no fake spine. Do not make it look like a book, report, box, binder, tablet, poster, stack, or booklet.`
+    };
+
+    const styleRules = {
+      auto: `Design style to use:
+Analyze the product context provided earlier in this chat and choose the strongest professional design direction for this exact offer. Base the design choice on the product's audience, promise, tone, price impression, niche expectations, and emotional hook. Do not use a random style. Do not force a niche-specific theme. Choose a cover direction that makes the product feel clear, desirable, credible, polished, and ready to sell.`,
+      boldPoster: `Design style to use:
+Use a bold poster-style cover design with oversized title typography, strong composition, simple supporting text, and immediate visual impact. Use powerful spacing and contrast instead of unnecessary graphics. Avoid cramming in too many benefits, tiny text, random icons, or chaotic poster clutter.`,
+      cleanEditorial: `Design style to use:
+Use a clean editorial cover design with magazine-quality typography, refined spacing, polished layout structure, and strong visual hierarchy. The cover should feel credible, modern, and commercially polished. Avoid generic stock-photo layouts and cluttered text blocks.`,
+      darkPremium: `Design style to use:
+Use a dark premium cover design with deep tones, crisp contrast, bold hierarchy, and polished commercial energy. Make it feel like a serious digital product, not a cheap template. Avoid random tech clutter, fake badges, and overcomplicated visual noise.`,
+      brightModern: `Design style to use:
+Use a bright modern cover design with clean color usage, fresh spacing, upbeat but professional energy, polished shapes, and a clear title hierarchy. Use color with discipline. Avoid childish colors, cartoon clutter, random stickers, cheap template effects, and overly playful visuals that reduce credibility.`,
+      minimalAuthority: `Design style to use:
+Use a minimal authority cover design with strong typography, confident spacing, restrained accents, and a clean expert-product feel. Make the design feel expensive through hierarchy, balance, contrast, and restraint. Avoid empty-looking layouts, generic minimalism, or bland corporate visuals.`,
+      highEnergy: `Design style to use:
+Use a high-energy promo cover design with bold motion, strong directional flow, sharp contrast, and a clear sense of speed, action, and momentum. Keep the layout readable and premium. Avoid chaotic effects, unreadable type, random icons, and cheap hype graphics.`,
+      luxuryBlack: `Design style to use:
+Use a luxury black cover design with rich black tones, metallic-feeling contrast, restrained highlights, elegant spacing, and a high-ticket digital-product feel. Keep the typography premium and readable. Avoid cheap gold overload, fake seals, and random luxury symbols.`,
+      futuristicTech: `Design style to use:
+Use a futuristic tech cover design with sleek digital accents, sharp typography, controlled glow effects, and a modern software-product feel. Make the design feel advanced and useful, not vague or generic. Avoid random circuit boards, fake code, and busy sci-fi clutter.`,
+      aiDashboard: `Design style to use:
+Use an AI dashboard-inspired cover design with clean interface-style panels, prompt-system energy, structured visual hierarchy, and polished software clarity. Make it feel like a working AI-powered system. Avoid fake app screenshots, unreadable interface text, or cluttered widgets.`,
+      conversionMarketing: `Design style to use:
+Use a conversion-marketing cover design with sharp headline hierarchy, directional visual flow, click-focused energy, and clear offer movement. Make the design feel built to sell. Avoid fake metrics, fake testimonials, random charts, or unsupported claims.`,
+      neonGlow: `Design style to use:
+Use a neon glow cover design with controlled luminous accents, dark contrast, modern motion, and bold typography. Keep the glow clean and premium. Avoid nightclub clutter, overexposure, unreadable letters, or childish colors.`,
+      corporateSaaS: `Design style to use:
+Use a corporate SaaS cover design with clean gradients, polished geometry, modern product-startup energy, and organized visual hierarchy. Make the product feel reliable and commercially useful. Avoid boring corporate templates, generic icons, and sterile empty layouts.`,
+      magazineCover: `Design style to use:
+Use a premium magazine-cover design with bold editorial title treatment, strong framing, elegant spacing, and a high-impact front-cover composition. Make it feel publishable and professional. Avoid too many cover lines, fake issue text, barcodes, or filler copy.`,
+      premiumCourse: `Design style to use:
+Use a premium course cover design with polished training-product energy, clean module-like structure, clear title hierarchy, and a finished educational-product feel. Avoid fake lesson names, fake modules, graduation imagery, and overused course-template graphics.`,
+      minimalWhite: `Design style to use:
+Use a minimal white cover design with bright space, crisp typography, subtle premium accents, and strong commercial clarity. Make the cover feel clean and expensive, not empty. Avoid low-contrast text, bland layouts, and generic office visuals.`,
+      blueOcean: `Design style to use:
+Use a blue ocean cover design with clean blue tones, open visual space, strategic clarity, and fresh market-positioning energy. Make the product feel like a smarter path, not a crowded tactic. Avoid literal ocean clichés unless the product context strongly supports them.`,
+      authorityReport: `Design style to use:
+Use an authority report cover design with serious typography, strong structure, restrained visual elements, and a credible expert-document feel. Make it feel like valuable strategic intelligence. Avoid academic dullness, fake stamps, fake credentials, or dense text.`,
+      viralSocial: `Design style to use:
+Use a viral social cover design with bold feed-style energy, scroll-stopping typography, clean visual tension, and attention-first composition. Make it feel modern and clickable. Avoid emojis, meme clutter, fake social media logos, and childish sticker effects.`,
+      offerStack: `Design style to use:
+Use an offer-stack cover design with strong value perception, layered visual depth on the cover artwork, bold title hierarchy, and premium bundle-style energy. Do not add companion products or physical extras. Keep the mockup as one selected ecover format only.`,
+      cinematicAction: `Design style to use:
+Use a cinematic action cover design with dramatic lighting, strong motion, deep contrast, and a clear visual story connected to the product promise. Keep it polished and readable. Avoid movie-poster clutter, people, props, explosions, or unrelated scenes.`
+    };
+
+    const colorRules = {
+      auto: `Color direction for the cover design:\nChoose the strongest color direction based on the product context. The cover colors must support the offer's promise, buyer desire, niche expectations, emotional hook, and perceived value. The final image background outside the product must remain pure white unless transparent background was selected.`,
+      dark: `Color direction for the cover design:\nUse a dark cover design with deep cover tones, high-contrast typography, dramatic cover accents, and a polished strong-product feel. The final image background outside the product must remain pure white unless transparent background was selected.`,
+      light: `Color direction for the cover design:\nUse a clean light cover design with bright visual space, premium contrast, readable typography, and a polished modern product feel. The final image background outside the product must remain pure white unless transparent background was selected.`,
+      vivid: `Color direction for the cover design:\nUse a vivid high-contrast cover design with energetic accent colors, strong visual separation, and clear title readability. Keep it premium and controlled. The final image background outside the product must remain pure white unless transparent background was selected.`,
+      luxury: `Color direction for the cover design:\nUse a luxury dark cover design with rich tones, restrained highlights, premium contrast, and a polished high-value product feel. Avoid flashy clutter. The final image background outside the product must remain pure white unless transparent background was selected.`
+    };
+
+    const directionRules = {
+      rightFacing: `Mockup direction rule:\nUse the selected mockup direction: Right Facing. Right Facing means the front cover or front panel faces slightly toward the viewer's left, with the right-side spine, page edge, side panel, or card edge visible. This direction rule changes only the viewing angle. Do not change the product type, shape, thickness, proportions, cover format, lighting, or background.`,
+      leftFacing: `Mockup direction rule:\nUse the selected mockup direction: Left Facing. Left Facing means the front cover or front panel faces slightly toward the viewer's right, with the left-side spine, page edge, side panel, or card edge visible. This direction rule changes only the viewing angle. Do not change the product type, shape, thickness, proportions, cover format, lighting, or background.`,
+      frontFacing: `Mockup direction rule:\nUse the selected mockup direction: Front Facing. Front Facing means the front cover or front panel faces the viewer directly with only subtle edge depth visible if it is natural for the selected product format. This direction rule changes only the viewing angle. Do not change the product type, shape, thickness, proportions, cover format, lighting, or background.`
+    };
+
+    function val(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function getSubtitleLine(subtitle, mode) {
+      if (subtitle) return `Subtitle: ${subtitle}`;
+      if (mode === 'omit') return `Subtitle: No subtitle was provided. Omit the subtitle entirely.`;
+      if (mode === 'create') return `Subtitle: No subtitle was provided by the user. Create one short, clear, benefit-driven subtitle from the product context and place that generated subtitle on the cover. Do not print this instruction as the subtitle.`;
+      return `Subtitle: No subtitle was provided by the user. If the product context clearly supports it, create one short, clear, benefit-driven subtitle from the product context and place that generated subtitle on the cover. If a subtitle would genuinely clutter the design, omit it. Do not print this instruction as the subtitle.`;
+    }
+
+    function getFastSubtitleLine(subtitle) {
+      if (subtitle) return `Subtitle: ${subtitle}`;
+      return `Subtitle: No subtitle was provided by the user. Create one short, clear, benefit-driven subtitle from the offer information, copy, description, or uploaded PDF context and place that generated subtitle on the cover. Do not print this instruction as the subtitle.`;
+    }
+
+    function toggleCustomPalette() {
+      const colorMode = document.getElementById('color').value;
+      const wrap = document.getElementById('customPaletteWrap');
+      wrap.style.display = colorMode === 'customPalette' ? 'block' : 'none';
+    }
+
+
+    function toggleFastCustomPalette() {
+      const colorMode = document.getElementById('fastColor').value;
+      const wrap = document.getElementById('fastCustomPaletteWrap');
+      wrap.style.display = colorMode === 'customPalette' ? 'block' : 'none';
+    }
+
+    function radioVal(name) {
+      const checked = document.querySelector(`input[name="${name}"]:checked`);
+      return checked ? checked.value : '';
+    }
+
+    function normalizeHex(value, fallback) {
+      let hex = (value || '').trim().toUpperCase();
+      if (!hex.startsWith('#')) hex = '#' + hex;
+      return /^#[0-9A-F]{6}$/.test(hex) ? hex : fallback;
+    }
+
+    function syncHexFromColor(slot) {
+      const colorInput = document.getElementById(slot + 'Color');
+      const hexInput = document.getElementById(slot + 'Hex');
+      if (!colorInput || !hexInput) return;
+      hexInput.value = colorInput.value.toUpperCase();
+      generatePrompts();
+    }
+
+    function syncColorFromHex(slot) {
+      const colorInput = document.getElementById(slot + 'Color');
+      const hexInput = document.getElementById(slot + 'Hex');
+      if (!colorInput || !hexInput) return;
+
+      let hex = hexInput.value.trim().toUpperCase();
+      if (!hex.startsWith('#')) hex = '#' + hex;
+      hexInput.value = hex;
+
+      if (/^#[0-9A-F]{6}$/.test(hex)) {
+        colorInput.value = hex;
+        generatePrompts();
+      }
+    }
+
+
+    function syncHexFromColorFast(slot) {
+      const colorInput = document.getElementById('fast' + slot.charAt(0).toUpperCase() + slot.slice(1) + 'Color');
+      const hexInput = document.getElementById('fast' + slot.charAt(0).toUpperCase() + slot.slice(1) + 'Hex');
+      if (!colorInput || !hexInput) return;
+      hexInput.value = colorInput.value.toUpperCase();
+      generateFastPrompts();
+    }
+
+    function syncColorFromHexFast(slot) {
+      const colorInput = document.getElementById('fast' + slot.charAt(0).toUpperCase() + slot.slice(1) + 'Color');
+      const hexInput = document.getElementById('fast' + slot.charAt(0).toUpperCase() + slot.slice(1) + 'Hex');
+      if (!colorInput || !hexInput) return;
+
+      let hex = hexInput.value.trim().toUpperCase();
+      if (!hex.startsWith('#')) hex = '#' + hex;
+      hexInput.value = hex;
+
+      if (/^#[0-9A-F]{6}$/.test(hex)) {
+        colorInput.value = hex;
+        generateFastPrompts();
+      }
+    }
+
+    function generatePrompts() {
+      const productTitle = val('productTitle') || '[Enter Your Offer Title]';
+      const subtitle = val('subtitle');
+      const brandName = val('brandName') || '[Enter Your Author or Brand Name]';
+      const format = val('format');
+      const style = val('style');
+      const color = val('color');
+      const primaryColor = normalizeHex(document.getElementById('primaryHex')?.value || document.getElementById('primaryColor')?.value, '#0F172A');
+      const secondaryColor = normalizeHex(document.getElementById('secondaryHex')?.value || document.getElementById('secondaryColor')?.value, '#1E63FF');
+      const accentColor = normalizeHex(document.getElementById('accentHex')?.value || document.getElementById('accentColor')?.value, '#2EE6FF');
+      const supportColor = normalizeHex(document.getElementById('supportHex')?.value || document.getElementById('supportColor')?.value, '#EAF2FF');
+      const direction = val('direction');
+      const subtitleMode = val('subtitleMode');
+      const contextHint = val('contextHint');
+
+      const setupPrompt = `We are going to create a premium ecover mockup in this chat session.\n\nHere is the cover text we will use later:\nProduct Title: ${productTitle}\n${getSubtitleLine(subtitle, subtitleMode)}\nInclude the author/brand name: ${brandName}\n\nIn my next message, I will paste my sales copy, product description, offer details, or upload the PDF if this is a PDF product.\n\nYour job in this chat session:\n1. First, acknowledge this setup.\n2. Then wait for my product copy, product description, offer details, or PDF.\n3. When I provide that product context, read it and use it only as context for the ecover design.\n4. After receiving the product context, do not create the image yet. Ask me for the ecover creation prompt.\n5. When I paste the ecover creation prompt, then create the finished ecover image.\n\nUse the product context to understand the product's niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.\n\nDo not create the image yet. Do not write the ecover prompt yet. Do not summarize unless absolutely necessary.\n\nFor now, simply acknowledge this by saying exactly:\n\nI understand, paste in your sales copy, description, or upload the PDF if it's a PDF product.\n\nAfter I provide the product context, reply exactly:\n\nGot it. Paste the ecover creation prompt.`;
+
+      const bgRule = `White background rule:\nPlace the finished ecover mockup on a clean pure white studio background. Use realistic soft shadows under and behind the product, but do not add scenery, rooms, desks, gradients, props, patterns, textures, dark backgrounds, colored backgrounds, or environmental objects. The background outside the product must stay pure white so the mockup looks clean, reusable, and ready for sales pages, product thumbnails, ads, and marketplace listings.`;
+
+      const optionalContext = contextHint ? `\n\nAdditional product context reminder:\n${contextHint}` : '';
+
+      const creationPrompt = `${formatRules[format]}\n\nCreate one finished ecover mockup using this exact cover text:\nProduct Title: ${productTitle}\n${getSubtitleLine(subtitle, subtitleMode)}\nInclude the author/brand name: ${brandName}\n\nUse the sales copy, product description, offer details, or uploaded PDF I provided earlier in this same chat as product context.\n\nUse that context to understand the product's niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.${optionalContext}\n\nThe entire look of the cover must be custom-fit to the product context, not generic. The selected design style is only a visual lens. The actual imagery, tone, typography feel, visual symbolism, hierarchy, accent details, and overall theme must match the sales copy, product description, offer details, or PDF context.\n\nDo not invent product features, modules, bonuses, claims, statistics, testimonials, logos, certification seals, brand names, or extra cover text that was not provided.\n\n${styleRules[style]}\n\nProduct-match rule:\nDo not create a generic cover. Make the cover feel specifically designed for this exact product, based on the product context provided earlier in the chat. The visual theme, imagery, accent details, mood, typography personality, and layout should all feel naturally connected to the product's market, promise, buyer, and emotional hook. Avoid generic stock-looking art, random decorative graphics, unrelated symbols, vague tech visuals, one-size-fits-all design choices, or designs that look like the title was simply swapped into a template.\n\n${
+  color === 'customPalette'
+    ? `Color direction for the cover design:
+Use this custom 4-color palette exactly as the visual foundation for the cover design.
+
+Primary color: ${primaryColor}
+Secondary color: ${secondaryColor}
+Accent color: ${accentColor}
+Support color: ${supportColor}
+
+Use these four colors with discipline across the typography, accents, shapes, highlights, and supporting design elements. Keep the final cover polished, readable, and professionally balanced. Do not force equal usage of all four colors. Use the palette intelligently based on hierarchy and contrast. The final image background outside the product must remain pure white unless transparent background was selected.`
+    : colorRules[color]
+}\n\n${directionRules[direction]}\n\nCover strength rule:\nThe cover design itself must feel visually finished, premium, attention-grabbing, and product-specific, not plain or empty. Use stronger design composition, better typography hierarchy, richer visual interest, cleaner contrast, and a more compelling visual treatment while keeping the design readable, polished, and professional.\n\nVisible side title rule:\nIf the selected product format has a visible spine, fold, edge, or side panel, place the product title clearly and cleanly on that visible side. Do not leave the visible side blank. For softback books, hardback books, reports, booklets, and software boxes, the title should appear on the visible side or spine when logically visible. For spiral workbooks, do not place the product title on the spine, coil binding, side edge, or page-edge area. Keep all product title text on the front cover only. For membership cards, do not force a fake spine or fake side title.\n\nShape consistency rule:\nThe selected ecover type controls the physical shape. Do not reinterpret, redesign, expand, combine, or replace that shape. Do not add companion products, duplicate covers, bonus stacks, extra books, extra cards, devices, packaging, props, hands, people, scenes, shelves, rooms, desks, floating icons, or background objects. Only create one clean mockup in the exact selected product format.\n\nText accuracy rule:\nUse only the exact product title, subtitle instructions, and author or brand name provided above.\n\nIf the subtitle field was filled in, use that exact subtitle.\n\nIf no subtitle was provided and the subtitle handling instruction says to create one, create a short benefit-driven subtitle from the product context and place the actual generated subtitle on the cover. Do not place the subtitle instruction text on the cover.\n\nIf a word does not fit cleanly, simplify the layout instead of inventing extra words.\n\nDo not add fake taglines, labels, badges, seals, feature names, menu items, chapters, testimonials, or random text. Avoid gibberish, misspellings, distorted letters, unreadable microtext, or random filler copy.\n\n${bgRule}\n\nProfessional design rule:\nMake the final ecover look professionally designed, clear, polished, and appropriate for the product. The design must feel custom to the offer and clearly connected to the product's topic, promise, and audience. It should not look like a generic template with the title swapped out. Avoid cluttered, childish, generic, cheap-looking, unrelated, or amateur visual choices.\n\nFinal hard check before generating:\nConfirm silently that the image contains exactly one selected ecover mockup, the correct locked shape, the exact provided cover text, a premium, bold, dramatic, product-matched visual theme, the product title on any logical visible spine or side panel except spiral workbooks, where the title stays on the front cover only, no invented claims, no extra objects, and the correct background.`;
+
+      document.getElementById('setupPrompt').textContent = setupPrompt;
+      document.getElementById('creationPrompt').textContent = creationPrompt;
+    }
+
+
+    function generateFastPrompts() {
+      const offerName = val('fastOfferName') || '[Enter Your Offer Name]';
+      const fastSubtitle = val('fastSubtitle');
+      const brandName = val('fastBrandName') || '[Enter Your Author or Brand Name]';
+      const format = radioVal('fastFormat') || 'softwareBox';
+      const color = val('fastColor');
+      const primaryColor = normalizeHex(document.getElementById('fastPrimaryHex')?.value || document.getElementById('fastPrimaryColor')?.value, '#0F172A');
+      const secondaryColor = normalizeHex(document.getElementById('fastSecondaryHex')?.value || document.getElementById('fastSecondaryColor')?.value, '#1E63FF');
+      const accentColor = normalizeHex(document.getElementById('fastAccentHex')?.value || document.getElementById('fastAccentColor')?.value, '#2EE6FF');
+      const supportColor = normalizeHex(document.getElementById('fastSupportHex')?.value || document.getElementById('fastSupportColor')?.value, '#EAF2FF');
+      const direction = val('fastDirection');
+
+      const fastSetupPrompt = `We are going to create a premium ecover mockup using Effortless eCovers FAST Mode in this chat session.
+
+Here is the cover text we will use later:
+Product Title: ${offerName}
+${getFastSubtitleLine(fastSubtitle)}
+Include the author/brand name: ${brandName}
+
+In my next message, I will paste in my offer information.
+
+Your job in this chat session:
+1. First, acknowledge this setup.
+2. Then wait for my offer information.
+3. When I provide that offer information, read it and use it only as context for the ecover design.
+4. After receiving the offer information, do not create the image yet. Ask me for the FAST Mode ecover creation prompt.
+5. When I paste the FAST Mode ecover creation prompt, then create the finished ecover image.
+
+Use the pasted offer information to understand the offer's niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.
+
+Do not create the image yet. Do not write the ecover prompt yet. Do not summarize unless absolutely necessary.
+
+For now, simply acknowledge this by saying exactly:
+
+I understand, paste in your offer information.
+
+After I provide the offer information, reply exactly:
+
+Got it. Paste the FAST Mode ecover creation prompt.`;
+
+      const fastColorRule = color === 'customPalette'
+        ? `Color direction for the cover design:
+Use this custom 4-color palette exactly as the visual foundation for the cover design.
+
+Primary color: ${primaryColor}
+Secondary color: ${secondaryColor}
+Accent color: ${accentColor}
+Support color: ${supportColor}
+
+Use these four colors with discipline across the typography, accents, shapes, highlights, and supporting design elements. Keep the final cover polished, readable, and professionally balanced. Do not force equal usage of all four colors. Use the palette intelligently based on hierarchy and contrast. The final image background outside the product must remain pure white.`
+        : colorRules[color];
+
+      const fastCreationPrompt = `${formatRules[format]}
+
+Create one finished ecover mockup using this exact cover text:
+Product Title: ${offerName}
+${getFastSubtitleLine(fastSubtitle)}
+Include the author/brand name: ${brandName}
+
+Use the offer information I provided earlier in this same chat as product context.
+
+Use that context to understand the offer's niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.
+
+The entire look of the cover must be custom-fit to the offer information, not generic. The actual imagery, tone, typography feel, visual symbolism, hierarchy, accent details, and overall theme must match the offer context.
+
+Do not invent product features, modules, bonuses, claims, statistics, testimonials, logos, certification seals, brand names, or extra cover text that was not provided.
+
+Design style to use:
+Analyze the offer information provided earlier in this chat and choose the strongest professional design direction for this exact offer. Base the design choice on the offer's audience, promise, tone, price impression, niche expectations, and emotional hook. Do not use a random style. Choose a cover direction that makes the product feel clear, desirable, credible, polished, and ready to sell.
+
+Product-match rule:
+Do not create a generic cover. Make the cover feel specifically designed for this exact offer based on the offer information provided earlier in the chat. The visual theme, imagery, accent details, mood, typography personality, and layout should all feel naturally connected to the offer's market, promise, buyer, and emotional hook. Avoid generic stock-looking art, random decorative graphics, unrelated symbols, vague tech visuals, one-size-fits-all design choices, or designs that look like the title was simply swapped into a template.
+
+${fastColorRule}
+
+${directionRules[direction]}
+
+Cover strength rule:
+The cover design must look like a finished premium product that could stop a buyer mid-scroll. Push the design harder with bold title hierarchy, dramatic contrast, rich depth, sharper visual energy, stronger focal point, and a clear custom concept tied to the offer. Make it feel striking, expensive, modern, and commercially powerful while staying clean, readable, and professional.
+
+Bold dramatic design rule:
+Do not settle for safe, flat, plain, timid, lightly decorated, or template-style design. Use large confident typography, high-impact spacing, strong contrast, dynamic composition, premium accents, and product-specific imagery that makes the cover feel instantly valuable. The result should feel bold, vibrant, creative, and visually memorable without becoming cluttered, cheesy, childish, or hard to read.
+
+Visible side title rule:
+If the selected product format has a visible spine, fold, edge, or side panel, place the product title clearly and cleanly on that visible side. Do not leave the visible side blank. For softback books, hardback books, reports, booklets, and software boxes, the title should appear on the visible side or spine when logically visible. For spiral workbooks, do not place the product title on the spine, coil binding, side edge, or page-edge area. Keep all product title text on the front cover only. For membership cards, do not force a fake spine or fake side title.
+
+Shape consistency rule:
+The selected ecover type controls the physical shape. Do not reinterpret, redesign, expand, combine, or replace that shape. Do not add companion products, duplicate covers, bonus stacks, extra books, extra cards, devices, packaging, props, hands, people, scenes, shelves, rooms, desks, floating icons, or background objects. Only create one clean mockup in the exact selected product format.
+
+Text accuracy rule:
+Use only the exact product title, subtitle instructions, and author or brand name provided above.
+
+If the subtitle field was filled in, use that exact subtitle.
+
+If no subtitle was provided, create a short benefit-driven subtitle from the offer information, copy, description, or uploaded PDF context and place the actual generated subtitle on the cover. Do not place the subtitle instruction text on the cover.
+
+If a word does not fit cleanly, simplify the layout instead of inventing extra words.
+
+Do not add fake taglines, labels, badges, seals, feature names, menu items, chapters, testimonials, or random text. Avoid gibberish, misspellings, distorted letters, unreadable microtext, or random filler copy.
+
+White background rule:
+Place the finished ecover mockup on a clean pure white studio background. Use realistic soft shadows under and behind the product, but do not add scenery, rooms, desks, gradients, props, patterns, textures, dark backgrounds, colored backgrounds, or environmental objects. The background outside the product must stay pure white so the mockup looks clean, reusable, and ready for sales pages, product thumbnails, ads, and marketplace listings.
+
+Professional design rule:
+Make the final ecover look like a premium digital product brand asset, not a basic AI image. The cover must be polished, bold, dramatic, clear, product-specific, and sales-page ready. It should feel custom to the offer, strongly connected to the topic, promise, audience, and emotional hook, and powerful enough to make someone pause, click, and take the product seriously. Avoid cluttered, childish, generic, cheap-looking, unrelated, timid, flat, boring, or amateur visual choices.
+
+Final hard check before generating:
+Confirm silently that the image contains exactly one selected ecover mockup, the correct locked shape, the exact provided cover text, a premium, bold, dramatic, product-matched visual theme, the product title on any logical visible spine or side panel except spiral workbooks, where the title stays on the front cover only, the exact provided subtitle if one was entered or a generated subtitle that matches the offer context if no subtitle was entered, no invented claims, no extra objects, and a pure white background.`;
+
+      document.getElementById('fastSetupPrompt').textContent = fastSetupPrompt;
+      document.getElementById('fastCreationPrompt').textContent = fastCreationPrompt;
+    }
+
+    function openTool(tool) {
+      const urls = {
+        chatgpt: 'https://chatgpt.com/',
+        gemini: 'https://gemini.google.com/'
+      };
+      window.open(urls[tool], '_blank', 'noopener,noreferrer');
+    }
+
+    function copyPrompt(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const buttons = document.querySelectorAll('.copy-btn');
+        buttons.forEach(btn => {
+          if (btn.getAttribute('onclick') === `copyPrompt('${id}')`) {
+            const old = btn.textContent;
+            btn.textContent = 'Copied';
+            setTimeout(() => btn.textContent = old, 900);
+          }
+        });
+      });
+    }
+
+
+    function resetFastForm() {
+      document.getElementById('fastOfferName').value = '';
+      document.getElementById('fastSubtitle').value = '';
+      document.getElementById('fastBrandName').value = '';
+      const firstFastFormat = document.querySelector('input[name="fastFormat"][value="softwareBox"]');
+      if (firstFastFormat) firstFastFormat.checked = true;
+      document.getElementById('fastColor').value = 'auto';
+      document.getElementById('fastPrimaryColor').value = '#0F172A';
+      document.getElementById('fastSecondaryColor').value = '#1E63FF';
+      document.getElementById('fastAccentColor').value = '#2EE6FF';
+      document.getElementById('fastSupportColor').value = '#EAF2FF';
+      document.getElementById('fastPrimaryHex').value = '#0F172A';
+      document.getElementById('fastSecondaryHex').value = '#1E63FF';
+      document.getElementById('fastAccentHex').value = '#2EE6FF';
+      document.getElementById('fastSupportHex').value = '#EAF2FF';
+      toggleFastCustomPalette();
+      document.getElementById('fastDirection').value = 'leftFacing';
+      generateFastPrompts();
+    }
+
+    function resetForm() {
+      document.getElementById('productTitle').value = '';
+      document.getElementById('subtitle').value = '';
+      document.getElementById('brandName').value = '';
+      document.getElementById('format').value = 'softwareBox';
+      document.getElementById('style').value = 'auto';
+      document.getElementById('color').value = 'auto';
+      document.getElementById('primaryColor').value = '#0F172A';
+      document.getElementById('secondaryColor').value = '#1E63FF';
+      document.getElementById('accentColor').value = '#2EE6FF';
+      document.getElementById('supportColor').value = '#EAF2FF';
+      document.getElementById('primaryHex').value = '#0F172A';
+      document.getElementById('secondaryHex').value = '#1E63FF';
+      document.getElementById('accentHex').value = '#2EE6FF';
+      document.getElementById('supportHex').value = '#EAF2FF';
+      toggleCustomPalette();
+      document.getElementById('direction').value = 'leftFacing';
+      document.getElementById('subtitleMode').value = 'create';
+      document.getElementById('contextHint').value = '';
+      generatePrompts();
+    }
+
+    function initializePromptOutput() {
+      try {
+        generatePrompts();
+        toggleCustomPalette();
+        generateFastPrompts();
+        toggleFastCustomPalette();
+      } catch (error) {
+        console.error('Prompt initialization failed:', error);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializePromptOutput);
+    } else {
+      initializePromptOutput();
+    }
+  </script>
+</body>
+</html>
