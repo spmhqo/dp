@@ -3,91 +3,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Links</title>
+    <title>Curated Links & Tools</title>
     <link rel="icon" href="spm.ico">
+    <!-- Google Fonts: Plus Jakarta Sans for ultra-modern minimalist typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for clean minimalist link icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            color-scheme: light;
-            --page-bg: #f2f2f2;
+            --bg-gradient: linear-gradient(135deg, #f6f8fb 0%, #eef2f7 100%);
             --paper: #ffffff;
-            --ink: #222222;
-            --muted: #666666;
-            --rule: #d9d9d9;
-            --link: #0563c1;
-            --link-visited: #954f72;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --card-hover-bg: #f8fafc;
+            --shadow-subtle: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+            --shadow-hover: 0 12px 30px -4px rgba(37, 99, 235, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+            --radius: 16px;
         }
-        *, *::before, *::after { box-sizing: border-box; }
-        html { min-height: 100%; }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             min-height: 100vh;
-            margin: 0;
-            padding: 24px 14px;
-            background: var(--page-bg);
+            background: var(--bg-gradient);
             color: var(--ink);
-            font: 11pt/1.55 Calibri, Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+            -webkit-font-smoothing: antialiased;
         }
+
         .document {
-            width: min(100%, 816px);
-            min-height: min(1056px, calc(100vh - 48px));
-            margin: 0 auto;
-            padding: clamp(28px, 7vw, 72px) clamp(22px, 9vw, 88px);
-            background: var(--paper);
-            box-shadow: 0 1px 8px rgba(0, 0, 0, .12);
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: calc(var(--radius) + 4px);
+            box-shadow: var(--shadow-subtle);
+            padding: clamp(32px, 6vw, 56px);
+            position: relative;
+            overflow: hidden;
         }
+
+        .document::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6);
+        }
+
+        .header-area {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         h1 {
-            margin: 0 0 24px;
-            font-size: 15pt;
-            line-height: 1.25;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h1 i {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .counter-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.8rem;
             font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 999px;
+            letter-spacing: -0.01em;
         }
-        ol {
-            margin: 0;
-            padding-left: 26px;
+
+        /* Search Bar */
+        .search-wrapper {
+            position: relative;
+            width: 100%;
         }
-        li {
-            padding: 8px 0;
-            border-bottom: 1px solid var(--rule);
+
+        .search-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 0.9rem;
         }
-        li:last-child { border-bottom: 0; }
-        a {
-            color: var(--link);
-            text-decoration: underline;
-            text-underline-offset: 2px;
-            overflow-wrap: anywhere;
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--ink);
+            transition: all 0.25s ease;
+            outline: none;
         }
-        a:visited { color: var(--link-visited); }
-        a:hover { text-decoration-thickness: 2px; }
-        a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
-        .note { display: block; color: var(--muted); font-size: 10pt; }
-        @media (max-width: 480px) {
-            body { padding: 0; background: var(--paper); }
-            .document { min-height: 100vh; padding: 28px 22px; box-shadow: none; }
-            h1 { margin-bottom: 18px; }
-            li { padding: 10px 0; }
+
+        .search-input:focus {
+            background: var(--paper);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
+
+        /* Categories Section */
+        .category-section {
+            margin-bottom: 32px;
+        }
+
+        .category-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-title i {
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .link-item {
+            transition: all 0.2s ease;
+        }
+
+        .link-item.hidden {
+            display: none;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: var(--paper);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--ink);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .link-card:hover {
+            background: var(--card-hover-bg);
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .link-card:hover .external-icon {
+            opacity: 1;
+            transform: translate(2px, -2px);
+            color: var(--primary);
+        }
+
+        .link-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+            flex: 1;
+            padding-right: 16px;
+        }
+
+        .link-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .link-name i {
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .link-card:hover .link-name {
+            color: var(--primary);
+        }
+
+        .note {
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-weight: 400;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #f1f5f9;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-size: 0.73rem;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .external-icon {
+            color: var(--muted);
+            font-size: 0.82rem;
+            opacity: 0.4;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .empty-state i {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 0;
+                background: var(--paper);
+            }
+            .document {
+                min-height: 100vh;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 24px 16px;
+            }
+            .link-card {
+                padding: 12px 14px;
+            }
+        }
+
         @media print {
-            body { padding: 0; background: #fff; }
-            .document { width: 100%; min-height: 0; padding: 0; box-shadow: none; }
-            a { color: inherit; }
+            body {
+                padding: 0;
+                background: #fff;
+            }
+            .document {
+                max-width: 100%;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+            .search-wrapper, .counter-badge {
+                display: none;
+            }
+            .link-card {
+                border: 1px solid #ddd;
+                box-shadow: none;
+                margin-bottom: 6px;
+            }
         }
     </style>
 </head>
 <body>
     <main class="document">
-        <h1>Links</h1>
-        <ol>
-            <li><a href="prompt-bundle-to-dp.html" target="_blank" rel="noopener noreferrer">prompt-bundle-to-dp.html</a></li>
-            <li><a href="reder-question-finder.html" target="_blank" rel="noopener noreferrer">reder-question-finder.html</a></li>
-            <li>
-                <a href="ice-cold-traffic-light.html" target="_blank" rel="noopener noreferrer">ice-cold-traffic-light.html</a>
-                <span class="note">(Keywords | Facebook | Blog Post)</span>
-            </li>
-            <li><a href="identify-central-topic.html" target="_blank" rel="noopener noreferrer">identify-central-topic.html</a></li>
-            <li><a href="graphy-dot-com-sales-copy.html" target="_blank" rel="noopener noreferrer">graphy-dot-com-sales-copy.html</a></li>
-            <li><a href="copyright-genie.html" target="_blank" rel="noopener noreferrer">copyright-genie.html</a></li>
-            <li><a href="ecover.html" target="_blank" rel="noopener noreferrer">ecover.html</a></li>
-            <li><a href="graphy-com-banner.html" target="_blank" rel="noopener noreferrer">graphy-com-banner.html</a></li>
-        </ol>
+        <div class="header-area">
+            <div class="title-row">
+                <h1><i class="fa-solid fa-compass"></i> Links Directory</h1>
+                <span class="counter-badge" id="counter">16 items</span>
+            </div>
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search across all categories..." autocomplete="off">
+            </div>
+        </div>
+
+        <!-- Category 1 -->
+        <div class="category-section" data-category-group="1">
+            <h2 class="category-title"><i class="fa-solid fa-folder"></i> General & Bengali Assistant</h2>
+            <ul class="links-list">
+                <li class="link-item" data-keywords="gaib.html get answer in bengali">
+                    <a href="gaib.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>gaib.html</span>
+                            <span class="note">Get Answer in Bengali</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Category 2 -->
+        <div class="category-section" data-category-group="2">
+            <h2 class="category-title"><i class="fa-solid fa-folder"></i> Original Core Prompts</h2>
+            <ul class="links-list">
+                <li class="link-item" data-keywords="prompt-bundle-to-dp.html">
+                    <a href="prompt-bundle-to-dp.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>prompt-bundle-to-dp.html</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="reder-question-finder.html">
+                    <a href="reder-question-finder.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>reder-question-finder.html</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="ice-cold-traffic-light.html keywords facebook blog post">
+                    <a href="ice-cold-traffic-light.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>ice-cold-traffic-light.html</span>
+                            <span class="note">
+                                <span class="tag">Keywords</span>
+                                <span class="tag">Facebook</span>
+                                <span class="tag">Blog Post</span>
+                            </span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="identify-central-topic.html">
+                    <a href="identify-central-topic.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>identify-central-topic.html</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="graphy-dot-com-sales-copy.html">
+                    <a href="graphy-dot-com-sales-copy.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>graphy-dot-com-sales-copy.html</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="copyright-genie.html">
+                    <a href="copyright-genie.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>copyright-genie.html</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="ecover.html">
+                    <a href="ecover.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>ecover.html</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="graphy-com-banner.html">
+                    <a href="graphy-com-banner.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>graphy-com-banner.html</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Category 3 -->
+        <div class="category-section" data-category-group="3">
+            <h2 class="category-title"><i class="fa-solid fa-folder"></i> Advanced Content & Bridge Tools</h2>
+            <ul class="links-list">
+                <li class="link-item" data-keywords="ai-compulsive-content-unlimited-premium.html ব্লগ পোস্ট ১ ২ ৩">
+                    <a href="ai-compulsive-content-unlimited-premium.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>ai-compulsive-content-unlimited-premium.html</span>
+                            <span class="note">ব্লগ পোস্ট (১|২|৩)</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="feature-image.html ফীচার ইমেজ ফর ব্লগ">
+                    <a href="feature-image.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>feature-image.html</span>
+                            <span class="note">ফীচার ইমেজ ফর ব্লগ</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="ice-cold-traffic-light.html ফেসবুক">
+                    <a href="ice-cold-traffic-light.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>ice-cold-traffic-light.html</span>
+                            <span class="note">ফেসবুক</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="refine-facebook-post.html refine facebook post">
+                    <a href="refine-facebook-post.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>refine-facebook-post.html</span>
+                            <span class="note">Refine Facebook Post</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="prompt-bundle-to-dp.html প্রম্পট পেজ">
+                    <a href="prompt-bundle-to-dp.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>prompt-bundle-to-dp.html</span>
+                            <span class="note">প্রম্পট পেজ</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="build-the-bridge.html bridge content prompt page">
+                    <a href="build-the-bridge.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>build-the-bridge.html</span>
+                            <span class="note">Bridge: Content -> prompt page</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+                <li class="link-item" data-keywords="build-the-bridge-follow-up.html refine bridge">
+                    <a href="build-the-bridge-follow-up.html" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <div class="link-info">
+                            <span class="link-name"><i class="fa-regular fa-file-code"></i>build-the-bridge-follow-up.html</span>
+                            <span class="note">Refine Bridge</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+            <i class="fa-regular fa-face-frown"></i>
+            <p>No matching links found.</p>
+        </div>
     </main>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const linkItems = document.querySelectorAll('.link-item');
+        const categorySections = document.querySelectorAll('.category-section');
+        const emptyState = document.getElementById('emptyState');
+        const counter = document.getElementById('counter');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            categorySections.forEach(section => {
+                const items = section.querySelectorAll('.link-item');
+                let sectionVisibleCount = 0;
+
+                items.forEach(item => {
+                    const keywords = item.getAttribute('data-keywords').toLowerCase();
+                    const textContent = item.textContent.toLowerCase();
+                    if (keywords.includes(query) || textContent.includes(query)) {
+                        item.classList.remove('hidden');
+                        sectionVisibleCount++;
+                        visibleCount++;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                if (sectionVisibleCount === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+
+            counter.textContent = `${visibleCount} item${visibleCount === 1 ? '' : 's'}`;
+
+            if (visibleCount === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
