@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refine Facebook Post (for blog post)</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+
+        .doc-subtitle { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+        .prompt-list { display: grid; gap: 18px; }
+
+        .prompt-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+        }
+
+        .prompt-heading {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .prompt-text {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .copy-btn {
+            margin-top: 14px;
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn.copied { background: var(--success); }
+        .copy-btn:focus-visible { outline: 3px solid rgba(67, 56, 202, 0.35); outline-offset: 2px; }
+
+        .doc-footer {
+            text-align: center;
+            margin-top: 42px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .prompt-card { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Refine Facebook Post</h1>
+            <p class="doc-subtitle">(for blog post)</p>
+        </header>
+
+        <section class="prompt-list" aria-label="Prompts">
+            <article class="prompt-card">
+                <h2 class="prompt-heading">Prompt#1</h2>
+                <p class="prompt-text" id="prompt1">Strengthen the CTA with a clear action</p>
+                <button class="copy-btn" type="button" data-prompt="prompt1">Copy Prompt#1</button>
+            </article>
+
+            <article class="prompt-card">
+                <h2 class="prompt-heading">Prompt#2</h2>
+                <p class="prompt-text" id="prompt2">Make the opening sharper for cold traffic</p>
+                <button class="copy-btn" type="button" data-prompt="prompt2">Copy Prompt#2</button>
+            </article>
+
+            <article class="prompt-card">
+                <h2 class="prompt-heading">Prompt#3</h2>
+                <p class="prompt-text" id="prompt3">Clarify the exact problem more sharply</p>
+                <button class="copy-btn" type="button" data-prompt="prompt3">Copy Prompt#3</button>
+            </article>
+
+            <article class="prompt-card">
+                <h2 class="prompt-heading">Prompt#4</h2>
+                <p class="prompt-text" id="prompt4">Make the post’s core promise sharper</p>
+                <button class="copy-btn" type="button" data-prompt="prompt4">Copy Prompt#4</button>
+            </article>
+
+            <article class="prompt-card">
+                <h2 class="prompt-heading">Prompt#5</h2>
+                <p class="prompt-text" id="prompt5">Choose one primary hook</p>
+                <button class="copy-btn" type="button" data-prompt="prompt5">Copy Prompt#5</button>
+            </article>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        document.querySelectorAll('.copy-btn').forEach((button) => {
+            button.addEventListener('click', async () => {
+                const prompt = document.getElementById(button.dataset.prompt).textContent;
+                const originalText = button.textContent;
+
+                try {
+                    await navigator.clipboard.writeText(prompt);
+                } catch (error) {
+                    const temporaryInput = document.createElement('textarea');
+                    temporaryInput.value = prompt;
+                    temporaryInput.setAttribute('readonly', '');
+                    temporaryInput.style.position = 'fixed';
+                    temporaryInput.style.opacity = '0';
+                    document.body.appendChild(temporaryInput);
+                    temporaryInput.select();
+                    document.execCommand('copy');
+                    temporaryInput.remove();
+                }
+
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                window.setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
