@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links</title>
+    <link rel="icon" href="spm.ico">
+    <style>
+        :root {
+            color-scheme: light;
+            --page-bg: #f2f2f2;
+            --paper: #ffffff;
+            --ink: #222222;
+            --muted: #666666;
+            --rule: #d9d9d9;
+            --link: #0563c1;
+            --link-visited: #954f72;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html { min-height: 100%; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px 14px;
+            background: var(--page-bg);
+            color: var(--ink);
+            font: 11pt/1.55 Calibri, Arial, sans-serif;
+        }
+        .document {
+            width: min(100%, 816px);
+            min-height: min(1056px, calc(100vh - 48px));
+            margin: 0 auto;
+            padding: clamp(28px, 7vw, 72px) clamp(22px, 9vw, 88px);
+            background: var(--paper);
+            box-shadow: 0 1px 8px rgba(0, 0, 0, .12);
+        }
+        h1 {
+            margin: 0 0 24px;
+            font-size: 15pt;
+            line-height: 1.25;
+            font-weight: 600;
+        }
+        ol {
+            margin: 0;
+            padding-left: 26px;
+        }
+        li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--rule);
+        }
+        li:last-child { border-bottom: 0; }
+        a {
+            color: var(--link);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            overflow-wrap: anywhere;
+        }
+        a:visited { color: var(--link-visited); }
+        a:hover { text-decoration-thickness: 2px; }
+        a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+        .note { display: block; color: var(--muted); font-size: 10pt; }
+        @media (max-width: 480px) {
+            body { padding: 0; background: var(--paper); }
+            .document { min-height: 100vh; padding: 28px 22px; box-shadow: none; }
+            h1 { margin-bottom: 18px; }
+            li { padding: 10px 0; }
+        }
+        @media print {
+            body { padding: 0; background: #fff; }
+            .document { width: 100%; min-height: 0; padding: 0; box-shadow: none; }
+            a { color: inherit; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document">
+        <h1>Links</h1>
+        <ol>
+            <li><a href="prompt-bundle-to-dp.html" target="_blank" rel="noopener noreferrer">prompt-bundle-to-dp.html</a></li>
+            <li><a href="reder-question-finder.html" target="_blank" rel="noopener noreferrer">reder-question-finder.html</a></li>
+            <li>
+                <a href="ice-cold-traffic-light.html" target="_blank" rel="noopener noreferrer">ice-cold-traffic-light.html</a>
+                <span class="note">(Keywords | Facebook | Blog Post)</span>
+            </li>
+            <li><a href="identify-central-topic.html" target="_blank" rel="noopener noreferrer">identify-central-topic.html</a></li>
+            <li><a href="graphy-dot-com-sales-copy.html" target="_blank" rel="noopener noreferrer">graphy-dot-com-sales-copy.html</a></li>
+            <li><a href="copyright-genie.html" target="_blank" rel="noopener noreferrer">copyright-genie.html</a></li>
+            <li><a href="ecover.html" target="_blank" rel="noopener noreferrer">ecover.html</a></li>
+            <li><a href="graphy-com-banner.html" target="_blank" rel="noopener noreferrer">graphy-com-banner.html</a></li>
+        </ol>
+    </main>
+</body>
+</html>
