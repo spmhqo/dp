@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copyright Genie</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+        .doc-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+        .doc-subtitle { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 30px 0 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .prompt-card {
+            margin-top: 18px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .prompt-title { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; }
+        .prompt-box {
+            display: block;
+            width: 100%;
+            min-height: 300px;
+            padding: 16px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            font: 0.92rem/1.65 var(--font-sans);
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            resize: vertical;
+        }
+        .prompt-card:nth-of-type(2) .prompt-box { min-height: 100px; }
+        .copy-btn {
+            flex: 0 0 auto;
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            font: 500 0.85rem var(--font-sans);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn.copied { background: var(--success); }
+        .doc-footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .prompt-card { padding: 16px; }
+            .prompt-header { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Copyright Genie</h1>
+            <p class="doc-subtitle">(for digital product)</p>
+        </header>
+
+        <section aria-labelledby="prompt-one-heading">
+            <h2 class="section-heading" id="prompt-one-heading">Prompt#1:</h2>
+            <div class="prompt-card">
+                <div class="prompt-header">
+                    <span class="prompt-title">Prompt#1</span>
+                    <button class="copy-btn" type="button" onclick="copyPrompt('promptOne', this)">Copy to Clipboard</button>
+                </div>
+                <textarea id="promptOne" class="prompt-box" readonly aria-label="Prompt number 1">Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+Create one polished all-in-one copyright, disclaimer, and change notice for the digital product we've been building in this same chat. This notice will be placed on the first page of the finished product.
+
+Use the exact branded product title already established earlier in this same chat and the exact author or brand identity established in Step 2 if one was provided. Preserve its spelling exactly. If none was provided, do not invent one or leave a placeholder.
+
+Adapt the disclaimer to the actual subject. Include only the professional-advice categories that are genuinely relevant to the topic.
+
+The finished notice should:
+- State that the product is protected and provided for the purchaser's or authorized recipient's personal use only
+- Prohibit unauthorized copying, sharing, uploading, reselling, sublicensing, republishing, modifying, translating, distributing, or transmitting
+- State that no ownership, resale, PLR, master resale, redistribution, or reproduction rights are granted unless separately provided in writing
+- Explain that the information is educational and informational and is not individualized professional advice where relevant
+- State that results are not guaranteed and depend on individual circumstances, decisions, effort, and implementation where relevant
+- Encourage readers to verify important or time-sensitive information
+- State that the author or publisher may revise, replace, or discontinue the product without notice and has no obligation to provide updates
+- Reasonably limit liability without exaggerated threats or fake legal citations
+
+Formatting rules:
+- Use a strong heading such as Copyright, Disclaimer & Change Notice
+- Write concise professional paragraphs suitable for the first page of a premium PDF
+- Do not include a year, date, placeholders, or process commentary
+- Return only the finished notice
+
+Return only the requested finished output. Do not preface it with commentary, summarize your process, explain your choices, mention the workflow, or add notes after it.</textarea>
+            </div>
+        </section>
+
+        <section aria-labelledby="prompt-two-heading">
+            <h2 class="section-heading" id="prompt-two-heading">Prompt#2:</h2>
+            <div class="prompt-card">
+                <div class="prompt-header">
+                    <span class="prompt-title">Prompt#2</span>
+                    <button class="copy-btn" type="button" onclick="copyPrompt('promptTwo', this)">Copy to Clipboard</button>
+                </div>
+                <textarea id="promptTwo" class="prompt-box" readonly aria-label="Prompt number 2">নথিটির ভাষা সম্পূর্ণ বাংলায় করুন</textarea>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        async function copyPrompt(id, button) {
+            const promptBox = document.getElementById(id);
+            try {
+                await navigator.clipboard.writeText(promptBox.value);
+            } catch (error) {
+                promptBox.focus();
+                promptBox.select();
+                document.execCommand('copy');
+                promptBox.setSelectionRange(0, 0);
+            }
+            const originalText = button.textContent;
+            button.textContent = '✓ Copied!';
+            button.classList.add('copied');
+            window.setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

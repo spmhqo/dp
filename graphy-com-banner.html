@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="bn-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphy.com Banner</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .document-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+        .doc-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+        .doc-subtitle { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 30px 0 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .prompt-card {
+            margin-top: 18px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .prompt-title { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; }
+        .prompt-box {
+            display: block;
+            width: 100%;
+            min-height: 140px;
+            padding: 16px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            font: 0.95rem/1.7 var(--font-sans);
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            resize: vertical;
+        }
+        .copy-btn {
+            flex: 0 0 auto;
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            font: 500 0.85rem var(--font-sans);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn.copied { background: var(--success); }
+        .doc-footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .prompt-card { padding: 16px; }
+            .prompt-header { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Graphy.com Banner</h1>
+            <p class="doc-subtitle">(for digital product)</p>
+        </header>
+
+        <section aria-labelledby="prompt-heading">
+            <h2 class="section-heading" id="prompt-heading">Prompt</h2>
+            <div class="prompt-card">
+                <div class="prompt-header">
+                    <span class="prompt-title">Prompt</span>
+                    <button class="copy-btn" type="button" onclick="copyPrompt()">Copy to Clipboard</button>
+                </div>
+                <textarea id="promptBox" class="prompt-box" readonly aria-label="Prompt">অনুগ্রহ করে Content-এর জন্য তৈরি করা আগের ecover Image-টিকে visual reference হিসেবে নিয়ে 16:9 landscape product banner image তৈরি করে দাও।</textarea>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        async function copyPrompt() {
+            const promptBox = document.getElementById('promptBox');
+            const button = document.querySelector('.copy-btn');
+            try {
+                await navigator.clipboard.writeText(promptBox.value);
+            } catch (error) {
+                promptBox.focus();
+                promptBox.select();
+                document.execCommand('copy');
+                promptBox.setSelectionRange(0, 0);
+            }
+            const originalText = button.textContent;
+            button.textContent = '✓ Copied!';
+            button.classList.add('copied');
+            window.setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
